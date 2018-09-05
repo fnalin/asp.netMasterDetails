@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+</head>
+<body>
+
+
+    <h2>Cadastro</h2>
+
+    <form method="post" action="~/Home/Salvar">
+        <div>
+            Nome:
+            <input type="text" name="nome" value="" />
+        </div>
+
+        <hr />
+        <div>
+
+            <div>
+                <button onclick="addNumero(event)">Add</button>
+            </div>
+
+
+        </div>
+
+        <hr />
+
+        <div id="inputs"></div>
+
+
+        <button>Salvar</button>
+
+
+
+    </form>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        function addNumero(e) {
+            e.preventDefault();
+
+            let ddd = $('#ddd').val();
+            let numero = $('#numeroTel').val();
+
+            addInput(ddd, numero);
+            refactorIndex();
+            //$('input').val('');
+        }
+
+        function addInput(ddd, numero) {
+            let div = $('<div/>')
+            $('<input>').attr({
+                type: 'text',
+                name:'dfgdf',// `Telefones[${count}].DDD`,
+                value: ddd
+            }).appendTo(div);
+
+            $('<input>').attr({
+                type: 'text',
+                name:'gdfgdfg',// `Telefones[${count}].Numero`,
+                value: numero
+            }).appendTo(div);
+
+            $('<button onclick="delTel(event)">x</button>').appendTo(div);
+
+            div.appendTo('#inputs');
+
+        }
+
+        function delTel(e) {
+            e.preventDefault();
+            $(e.target).parent('div').remove();
+            refactorIndex();
+        }
+
+        function refactorIndex()
+        {
+            let inputs = $('#inputs>div');
+            $.each(inputs, function (i, item) {
+                let ddd = $(item).find('input')[0];
+                let numero = $(item).find('input')[1];
+                $(ddd).attr('name', `Telefones[${i}].DDD`);
+                $(numero).attr('name', `Telefones[${i}].Numero`);
+            });
+        }
+        
+
+        //function addInput(ddd, numero) {
+        //    $('<input>').attr({
+        //        type: 'hidden',
+        //        name: 'Telefones.ddd[]',
+        //        value: 'sdfsdf'
+        //    }).appendTo('#inputs');
+
+        //    $('<input>').attr({
+        //        type: 'hidden',
+        //        name: 'Telefones.numero[]',
+        //        value: 'fgdfgdfg'
+        //    }).appendTo('#inputs');
+
+            
+        //}
+
+        //function addTable(ddd, numero) {
+        //    $('table').append(`<tr><td>${ddd}</td><td>${numero}</td></tr>`);
+        //}
+
+
+    </script>
+
+
+</body>
+</html>
